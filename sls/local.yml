@@ -1,0 +1,42 @@
+vpc: ""
+alertNotifications: ""
+Resources:
+  # ApiGatewayMethodV1HealthOauthGet:
+  #   Type: "AWS::ApiGateway::Method"
+  #   Properties:
+  #     AuthorizationScopes:
+  #       - "example.api/example.get"
+  # ApiGatewayAuthorizer:
+  #     Type: AWS::ApiGateway::Authorizer
+  #     Properties:
+  #       AuthorizerResultTtlInSeconds: 300
+  #       IdentitySource: method.request.header.Authorization
+  #       Name: ExampleLambdaAuthorizer
+  #       RestApiId:
+  #         Ref: ApiGatewayRestApi
+  #       Type: COGNITO_USER_POOLS
+  #       ProviderARNs:
+  #         - arn:aws:cognito-idp:eu-central-1:336530295776:userpool/eu-central-1_s3gKfKklN
+  S3Bucket:
+    Type: 'AWS::S3::Bucket'
+    Properties:
+      AccessControl: Private
+      BucketName: '${self:provider.environment.BUCKET}'
+      MetricsConfigurations:
+        - Id: EntireBucket
+  # requestBodyValidator:
+  #   Type: 'AWS::ApiGateway::RequestValidator'
+  #   Properties:
+  #     Name: reqBodyValidator
+  #     RestApiId:
+  #       Ref: ApiGatewayRestApi
+  #     ValidateRequestBody: true
+  #     ValidateRequestParameters: false
+  # requestParametersValidator:
+  #   Type: 'AWS::ApiGateway::RequestValidator'
+  #   Properties:
+  #     Name: reqParamsValidator
+  #     RestApiId:
+  #       Ref: ApiGatewayRestApi
+  #     ValidateRequestBody: false
+  #     ValidateRequestParameters: true

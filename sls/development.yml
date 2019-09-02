@@ -1,0 +1,113 @@
+vpc: ""
+alertNotifications: ""
+Resources:
+  S3Bucket:
+    Type: 'AWS::S3::Bucket'
+    Properties:
+      AccessControl: Private
+      BucketName: '${self:provider.environment.BUCKET}'
+      MetricsConfigurations:
+        - Id: EntireBucket
+
+  requestBodyValidator:
+    Type: 'AWS::ApiGateway::RequestValidator'
+    Properties:
+      Name: reqBodyValidator
+      RestApiId:
+        Ref: ApiGatewayRestApi
+      ValidateRequestBody: true
+      ValidateRequestParameters: false
+  requestParametersValidator:
+    Type: 'AWS::ApiGateway::RequestValidator'
+    Properties:
+      Name: reqParamsValidator
+      RestApiId:
+        Ref: ApiGatewayRestApi
+      ValidateRequestBody: false
+      ValidateRequestParameters: true
+  LambdaCognitoUserPool:
+    Type: 'AWS::Cognito::UserPool'
+    Properties:
+      UserPoolName: LambdaUserPool
+  LambdaCognitoUserPoolClient:
+    Type: 'AWS::Cognito::UserPoolClient'
+    Properties:
+      ClientName: LambdaTest
+      GenerateSecret: false
+      UserPoolId:
+        Ref: LambdaCognitoUserPool
+      ExplicitAuthFlows:
+        - USER_PASSWORD_AUTH
+  LambdaCognitoIdentityPool:
+    Type: 'AWS::Cognito::IdentityPool'
+    Properties:
+      IdentityPoolName: LambdaTestIdentityPool
+      AllowUnauthenticatedIdentities: false
+      CognitoIdentityProviders:
+        -
+          ClientId:
+            Ref: LambdaCognitoUserPoolClient
+          ProviderName:
+            'Fn::GetAtt':
+              - LambdaCognitoUserPool
+              - ProviderName
+  CognitoAuthorizedRole:
+    Type: 'AWS::IAM::Role'
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          -
+            Effect: Allow
+            Principal:
+              Federated: cognito-identity.amazonaws.com
+            Action:
+              - 'sts:AssumeRoleWithWebIdentity'
+            Condition:
+              StringEquals:
+                'cognito-identity.amazonaws.com:aud':
+                  Ref: LambdaCognitoIdentityPool
+              'ForAnyValue:StringLike':
+                'cognito-identity.amazonaws.com:amr': authenticated
+      Policies:
+        -
+          PolicyName: CognitoAuthorizedPolicy
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              -
+                Effect: Allow
+                Action:
+                  - 'mobileanalytics:PutEvents'
+                  - 'cognito-sync:*'
+                  - 'cognito-identity:*'
+                Resource: '*'
+              -
+                Effect: Allow
+                Action:
+                  - 'lambda:InvokeFunction'
+                  - 'execute-api:Invoke'
+                Resource: '*'
+  IdentityPoolRoleMapping:
+    Type: 'AWS::Cognito::IdentityPoolRoleAttachment'
+    Properties:
+      IdentityPoolId:
+        Ref: LambdaCognitoIdentityPool
+      Roles:
+        authenticated:
+          'Fn::GetAtt':
+            - CognitoAuthorizedRole
+            - Arn
+
+  SNSTopic: ${file(./sls/monitoring.yml):SNSTopic}
+
+  ApiGateway4XXError: ${file(./sls/monitoring.yml):ApiGateway4XXError}
+  ApiGateway5XXError: ${file(./sls/monitoring.yml):ApiGateway5XXError}
+  ApiGatewayLatency: ${file(./sls/monitoring.yml):ApiGatewayLatency}
+
+  s3bucket4xxErrors: ${file(./sls/monitoring.yml):s3bucket4xxErrors}
+  s3bucket5xxErrors: ${file(./sls/monitoring.yml):s3bucket5xxErrors}
+  s3bucketTotalRequestLatency: ${file(./sls/monitoring.yml):s3bucketTotalRequestLatency}
+
+customDomain:
+  enabled: false

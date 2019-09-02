@@ -1,0 +1,11 @@
+ci-common/
+bamboo-specs/
+reports/
+.scannerwork/
+false/
+.gitmodules
+*.log
+*.sh
+artifact.tar
+.editorconfig
+release-upload-output.json
