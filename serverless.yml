@@ -71,7 +71,7 @@ functions:
               description: 'todo'
             - name: distChannel
               description: 'todo'
-            - name: soldto
+            - name: soldTo
               description: 'todo'
 custom:
   warmup:

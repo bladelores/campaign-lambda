@@ -44,7 +44,7 @@ paths:
             type: string
             minimum: 1
         - in: query
-          name: soldto
+          name: soldTo
           required: true
           example: '107757'
           schema:
