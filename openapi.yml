@@ -25,7 +25,28 @@ paths:
         - in: query
           name: crnnumber
           required: true
-          example: '12223456'
+          example: '13061103'
+          schema:
+            type: string
+            minimum: 1
+        - in: query
+          name: salesOrg
+          required: true
+          example: 'DE01'
+          schema:
+            type: string
+            minimum: 1
+        - in: query
+          name: distChannel
+          required: true
+          example: '01'
+          schema:
+            type: string
+            minimum: 1
+        - in: query
+          name: soldto
+          required: true
+          example: '107757'
           schema:
             type: string
             minimum: 1
@@ -43,7 +64,17 @@ components:
     CasingResponse:
       type: "object"
       properties:
-        result:
-          type: string
-          example: bf7f5254cd22318be47afe3e64b475a006c4774b
+        isPending: 
+          type: boolean
+          example: true
+        hasAtLeastOneCOCCasing: 
+          type: boolean
+          example: true
+        hasAtLeastOneCBCasing: 
+          type: boolean
+          example: false
+        crnData:
+          type: object
+          example: {"CRNNumber": "13061103", "casingReturnNoteEntries": [ { "serialNumber": "11131112", "requestedBusinessModel": "COC", "finalBusinessModel": "COC", "vehicleRegistrationNumber": "XY-AB-123", "treadDepth": "1", "barcode": "1111111117", "jobCardReference": "13", "regrooveIndicator": false, "retreadMaterialNumber": "894245", "retread": { "zzDesign": "TMLHT2", "zzDesignText": "TREADMAX LHT II", "brandName": "Goodyear", "brandImageUrlSmall": "/medias/sys_master/root/hcb/hec/8845016825886/logo-goodyear.png" }, "productSpec": "385/65R22.5 K", "returnCasingIfRejected": false, "itemNumber": "1", "hybrisStatus": { "code": "UPDATE", "codeLowerCase": "update" }, "casingStatus": { "code": "Stat_010", "codeLowerCase": "stat_010" }, "casingMaterial": { "code": "878775", "name": "CS 385/65R22.5 GDY FUELMAX S K 1L", "url": "/p/878775", "purchasable": true, "baseOptions": [], "configurable": false, "brand": { "code": "010", "name": "Goodyear", "logoUrl": "/medias/sys_master/root/hcb/hec/8845016825886/logo-goodyear.png" }, "title": "FUELMAX S", "aspectRatio": "65", "rimSize": "22.5", "widthMm": "385", "gradeRelevant": false, "labelRelevant": false, "speedIndex": "K", "marketingText": "CS 385/65R22.5 GDY FUELMAX S K 1L", "design": "FUELMAXS", "hier1": "Nicht-Reifen-Bereich", "hier1Code": "7", "hier2": "Retread", "hier2Code": "41", "zzTireSize": "385/65R22.5", "duraseal": false, "specs": "385/65R22.5 K", "features": [], "markings": {}, "orderable": false, "alternative": false, "alreadyOrdered": false, "life": "9L1", "maktx": "CS 385/65R22.5 GDY FUELMAX S K 1L", "asymmetric": false, "directional": false, "speedIndexName": "K <= 110 KM/H", "oeFitments": [], "abClass": "", "patternDeviation": false, "productType": "TireProduct" }, "allowedOperations": [ { "code": "CS_salesGradingAllowed", "codeLowerCase": "cs_salesgradingallowed" }, { "code": "CS_COCGradingAllow", "codeLowerCase": "cs_cocgradingallow" }, { "code": "CS_editingAllowed", "codeLowerCase": "cs_editingallowed" } ], "reordered": false, "serialNotVisible": false }, { "serialNumber": "11311114", "requestedBusinessModel": "PU", "finalBusinessModel": "PU", "vehicleRegistrationNumber": "XY-AC-123", "treadDepth": "2", "barcode": "2111211112", "jobCardReference": "13", "regrooveIndicator": false, "productSpec": "315/60R22.5 152 L", "returnCasingIfRejected": false, "itemNumber": "2", "hybrisStatus": { "code": "UPDATE", "codeLowerCase": "update" }, "casingStatus": { "code": "Stat_010", "codeLowerCase": "stat_010" }, "casingMaterial": { "code": "878888", "name": "CS 315/60R22.5 GDY FUELMAX D 1L", "url": "/p/878888", "purchasable": true, "baseOptions": [], "configurable": false, "brand": { "code": "010", "name": "Goodyear", "logoUrl": "/medias/sys_master/root/hcb/hec/8845016825886/logo-goodyear.png" }, "title": "FUELMAX D", "aspectRatio": "60", "rimSize": "22.5", "widthMm": "315", "gradeRelevant": false, "labelRelevant": false, "loadIndex": "152", "speedIndex": "L", "marketingText": "CS 315/60R22.5 GDY FUELMAX D 1L", "design": "FUELMAXD", "hier1": "Nicht-Reifen-Bereich", "hier1Code": "7", "hier2": "Retread", "hier2Code": "41", "zzTireSize": "315/60R22.5", "duraseal": false, "specs": "315/60R22.5 152 L", "features": [], "markings": {}, "orderable": false, "alternative": false, "alreadyOrdered": false, "life": "9L1", "maktx": "CS 315/60R22.5 GDY FUELMAX D 1L", "asymmetric": false, "directional": false, "speedIndexName": "L <= 120 KM/H", "oeFitments": [], "abClass": "", "patternDeviation": false, "productType": "TireProduct" }, "allowedOperations": [ { "code": "CS_salesGradingAllowed", "codeLowerCase": "cs_salesgradingallowed" }, { "code": "CS_COCGradingAllow", "codeLowerCase": "cs_cocgradingallow" }, { "code": "CS_editingAllowed", "codeLowerCase": "cs_editingallowed" } ], "reordered": false, "serialNotVisible": false }, { "serialNumber": "11345111", "requestedBusinessModel": "CE", "finalBusinessModel": "CE", "vehicleRegistrationNumber": "XY-AD-123", "treadDepth": "4", "barcode": "1111154117", "jobCardReference": "13", "regrooveIndicator": false, "retreadMaterialNumber": "894567", "retread": { "zzDesign": "TMSP444", "zzDesignText": "TREADMAX SP444", "brandName": "Dunlop", "brandImageUrlSmall": "/medias/sys_master/root/h61/h08/8845016858654/logo-dunlop.png" }, "productSpec": "315/70R22.5 L", "returnCasingIfRejected": true, "itemNumber": "3", "hybrisStatus": { "code": "UPDATE", "codeLowerCase": "update" }, "casingStatus": { "code": "Stat_010", "codeLowerCase": "stat_010" }, "casingMaterial": { "code": "878754", "name": "CS 315/70R22.5 GDY FUELMAX D L 1L", "url": "/p/878754", "purchasable": true, "baseOptions": [], "configurable": false, "brand": { "code": "010", "name": "Goodyear", "logoUrl": "/medias/sys_master/root/hcb/hec/8845016825886/logo-goodyear.png" }, "title": "FUELMAX D", "aspectRatio": "70", "rimSize": "22.5", "widthMm": "315", "gradeRelevant": false, "labelRelevant": false, "speedIndex": "L", "marketingText": "CS 315/70R22.5 GDY FUELMAX D L 1L", "design": "FUELMAXD", "hier1": "Nicht-Reifen-Bereich", "hier1Code": "7", "hier2": "Retread", "hier2Code": "41", "zzTireSize": "315/70R22.5", "duraseal": false, "specs": "315/70R22.5 L", "features": [], "markings": {}, "orderable": false, "alternative": false, "alreadyOrdered": false, "life": "9L1", "maktx": "CS 315/70R22.5 GDY FUELMAX D L 1L", "asymmetric": false, "directional": false, "speedIndexName": "L <= 120 KM/H", "oeFitments": [], "abClass": "", "patternDeviation": false, "productType": "TireProduct" }, "allowedOperations": [ { "code": "CS_salesGradingAllowed", "codeLowerCase": "cs_salesgradingallowed" }, { "code": "CS_COCGradingAllow", "codeLowerCase": "cs_cocgradingallow" }, { "code": "CS_editingAllowed", "codeLowerCase": "cs_editingallowed" } ], "reordered": false, "serialNotVisible": false } ], "businessModelCount": { "CE": 1, "PU": 1, "COC": 1 }, "status": "UNCHANGED", "pickupAddress": { "id": "8801358741527", "name": "Euromaster GmbH Hauptverwaltung", "street": "Mainzer Str.", "streetNumber": "81", "postalCode": "67657", "city": "Kaiserslautern ", "country": "Deutschland" }, "retreadReturnCustomer": { "id": "8801358741527", "customerNumber": "107757", "name": "Euromaster GmbH Hauptverwaltung", "street": "Mainzer Str.", "streetNumber": "81", "postalCode": "67657", "city": "Kaiserslautern ", "country": "Deutschland" }, "headerComment": "Kommentar", "crnSource": { "code": "EC", "codeLowerCase": "ec" }, "casingOwnerVendor": "0004405094", "casingOwnerCustomer": "107757", "creationDate": "2019-08-28", "submitDate": "28.08.2019", "creator": "Theresa Reus", "casingPartner": "30026536", "casingPartnerName": "Dikabo GmbH ", "salesOrganisation": "DE01", "distributionChannel": "01", "soldTo": "107757", "soldToName": "Euromaster GmbH Hauptverwaltung", "crnStatus": { "code": "PENDING", "codeLowerCase": "pending" }, "regularCRN": true, "shipTo": "107757" }
+        
     

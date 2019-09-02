@@ -1,3 +1,6 @@
 export interface ICasingResponse {
-    result: string;
+    isPending: boolean;
+    hasAtLeastOneCOCCasing: boolean;
+    hasAtLeastOneCBCasing: boolean;
+    crnData: any;
 }

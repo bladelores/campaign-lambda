@@ -67,6 +67,12 @@ functions:
           queryParams:
             - name: crnnumber
               description: 'todo'
+            - name: salesOrg
+              description: 'todo'
+            - name: distChannel
+              description: 'todo'
+            - name: soldto
+              description: 'todo'
 custom:
   warmup:
     cleanFolder: false
