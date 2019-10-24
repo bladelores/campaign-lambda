@@ -1,2 +1,2 @@
 export * from './health/handler';
-export * from './articles/handler';
+export * from './campaign/handler';

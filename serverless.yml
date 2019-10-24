@@ -1,4 +1,4 @@
-service: casingdetail-ms-lambda
+service: b2c-campaign-backoffice
 provider:
   name: aws
   runtime: nodejs8.10
@@ -6,7 +6,7 @@ provider:
   stage: stage
   timeout: 3
   environment:
-    BUCKET: ${opt:stage, self:provider.stage}-casingdetail-ms-lambda-s3-deploy
+    BUCKET: b2c-campaign-lambda-${opt:stage, self:provider.stage}
     API_VERSION: v1
     STAGE: ${opt:stage, self:provider.stage}
     VERSION: ${opt:version, '1.0'}
@@ -46,33 +46,24 @@ package:
   - src/**/*.ts
 
 functions:
-  casingDetail:
-    handler: src/casing/handler.casingDetails
-    description: Casing Detail Handler
+  campaignInfo:
+    handler: src/campaign/handler.campaignInfo
+    description: Campaign Info Handler
     events:
     - http:
-        path: ${self:provider.environment.API_VERSION}/casingdetails
+        path: ${self:provider.environment.API_VERSION}/campaign
         method: get
         cors: true
-        documentation: 
-          summary: Returns the details of casing
-          description: Returns the details of casing
+        documentation:
+          summary: Returns the details of campaigns
+          description: Returns the details of campaigns
           tags:
-          - Casings
+          - Campaigns
           methodResponses:
           - statusCode: '200'
             description: Returned when the operation is completed successfully.
             responseModels:
-              "application/json": CasingResponse
-          queryParams:
-            - name: crnnumber
-              description: 'todo'
-            - name: salesOrg
-              description: 'todo'
-            - name: distChannel
-              description: 'todo'
-            - name: soldTo
-              description: 'todo'
+              "application/json": CampaignResponse
 custom:
   warmup:
     cleanFolder: false
@@ -86,9 +77,9 @@ custom:
   documentation:
     models:
     -
-      name: CasingResponse
+      name: CampaignResponse
       contentType: "application/json"
-      schema: ${file(openapi.yml):components.schemas.CasingResponse}
+      schema: ${file(openapi.yml):components.schemas.CampaignResponse}
 
 resources:
   Resources:

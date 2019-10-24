@@ -1,5 +1,5 @@
 {
-  "name": "casingdetail-ms-lambda",
+  "name": "b2c-campaign-backoffice",
   "version": "1.0.0",
   "description": "",
   "main": "./dist/src/index.js",
@@ -14,10 +14,14 @@
     "validate": "lambda-validate ./package.json"
   },
   "dependencies": {
+    "atlassian-jwt": "^1.0.2",
     "aws-xray-sdk": "^2.3.4",
+    "curl-request": "^1.1.1",
     "gaas-global": "^1.0.0",
+    "jwt-simple": "^0.5.6",
     "lambda-core": "1.2.48",
     "request": "^2.88.0",
+    "request-promise-native": "^1.0.7",
     "serverless-plugin-aws-alerts": "^1.4.0"
   },
   "devDependencies": {
@@ -33,7 +37,7 @@
     "jest": "^23.5.0",
     "jest-bamboo-reporter": "^1.2.0",
     "request-promise": "^4.2.4",
-    "serverless": "1.43.0",
+    "serverless": "^1.54.0",
     "serverless-aws-documentation": "^1.1.0",
     "serverless-domain-manager": "^2.6.13",
     "serverless-offline": "^3.33.0",

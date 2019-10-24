@@ -1,6 +1,33 @@
-vpc: ""
-alertNotifications: ""
+environment:
+  BUCKET: b2c-campaign-lambda-${opt:stage, self:provider.stage}
+  API: b2c-campaign-lambda-${opt:stage, self:provider.stage}
+  API_VERSION: v1
+  SKIP_ACCESS: true
+  STAGE: ${opt:stage, self:provider.stage}
+  VERSION: ${opt:version, '1.0'}
+
+authorizer:
+  type: COGNITO_USER_POOLS
+  authorizerId:
+    Ref: ApiGatewayAuthorizer
+
 Resources:
+  ApiGatewayAuthorizer:
+    Type: AWS::ApiGateway::Authorizer
+    Properties:
+      AuthorizerResultTtlInSeconds: 300
+      IdentitySource: method.request.header.Authorization
+      Name: B2CCampaignBackofficeAuthorizer
+      RestApiId:
+        Ref: ApiGatewayRestApi
+      Type: COGNITO_USER_POOLS
+      ProviderARNs:
+      - ${opt:authorizerProviderArn, 'arn:aws:cognito-idp:eu-central-1:928200928641:userpool/eu-central-1_YZYgOQntQ'}
+  ApiGatewayMethodV1CampaignVarGet:
+    Type: "AWS::ApiGateway::Method"
+    Properties:
+      AuthorizationScopes:
+        - "b2c-campaign.api/campaign.info"
   S3Bucket:
     Type: 'AWS::S3::Bucket'
     Properties:
@@ -108,6 +135,8 @@ Resources:
   s3bucket4xxErrors: ${file(./sls/monitoring.yml):s3bucket4xxErrors}
   s3bucket5xxErrors: ${file(./sls/monitoring.yml):s3bucket5xxErrors}
   s3bucketTotalRequestLatency: ${file(./sls/monitoring.yml):s3bucketTotalRequestLatency}
+
+alertNotifications: ''
 
 customDomain:
   enabled: false
